@@ -3,7 +3,7 @@ import preguntas from "@/data/preguntas.json";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle2, XCircle, ChevronRight } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
@@ -20,14 +20,11 @@ type RespuestaUsuario = {
   esCorrecta: boolean;
 };
 
-const ANIMATION_DURATION = 400;
-
 const Quiz: React.FC = () => {
   const [indice, setIndice] = useState(0);
   const [seleccionada, setSeleccionada] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<"correcta" | "incorrecta" | null>(null);
   const [respuestas, setRespuestas] = useState<RespuestaUsuario[]>([]);
-  const [animando, setAnimando] = useState(false);
   const navigate = useNavigate();
 
   const total = preguntas.length;
@@ -38,7 +35,7 @@ const Quiz: React.FC = () => {
   }, [indice]);
 
   const handleSeleccion = (opcion: string) => {
-    if (seleccionada || animando) return;
+    if (seleccionada) return;
     setSeleccionada(opcion);
     const esCorrecta = opcion === preguntas[indice].respuesta;
     setFeedback(esCorrecta ? "correcta" : "incorrecta");
@@ -51,28 +48,21 @@ const Quiz: React.FC = () => {
         esCorrecta,
       },
     ]);
-    setAnimando(true);
-    setTimeout(() => {
-      setAnimando(false);
-      if (indice + 1 < total) {
-        setIndice(indice + 1);
-      } else {
-        navigate("/result", { state: { respuestas: [...respuestas, {
-          pregunta: preguntas[indice].pregunta,
-          seleccionada: opcion,
-          correcta: preguntas[indice].respuesta,
-          esCorrecta,
-        }] } });
-      }
-    }, ANIMATION_DURATION + 600);
   };
 
-  // Animación de entrada
+  const handleSiguiente = () => {
+    if (indice + 1 < total) {
+      setIndice(indice + 1);
+    } else {
+      // Ir a resultados
+      navigate("/result", { state: { respuestas } });
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0F172A] transition-colors duration-500">
       <Card className={clsx(
-        "w-full max-w-xl shadow-xl rounded-2xl bg-[#1E293B] border-none animate-fade-in",
-        animando && "animate-pulse"
+        "w-full max-w-xl shadow-xl rounded-2xl bg-[#1E293B] border-none animate-fade-in"
       )}>
         <CardContent className="p-8">
           <div className="flex justify-between items-center mb-4">
@@ -80,7 +70,7 @@ const Quiz: React.FC = () => {
               Pregunta {indice + 1} de {total}
             </span>
             <Progress
-              value={((indice + (feedback ? 1 : 0)) / total) * 100}
+              value={((indice) / total) * 100}
               className="w-32 h-2 bg-[#0F172A] [&>*]:bg-[#38BDF8]"
             />
           </div>
@@ -113,7 +103,7 @@ const Quiz: React.FC = () => {
             })}
           </div>
           {feedback && (
-            <div className="mt-6 flex items-center justify-center gap-2">
+            <div className="mt-6 flex flex-col items-center justify-center gap-4">
               {feedback === "correcta" ? (
                 <span className="text-[#10B981] text-xl font-bold animate-bounce">¡Correcto! 🎉</span>
               ) : (
@@ -121,6 +111,15 @@ const Quiz: React.FC = () => {
                   Incorrecto. Respuesta correcta: <b>{preguntas[indice].respuesta}</b>
                 </span>
               )}
+              <Button
+                onClick={handleSiguiente}
+                className={clsx(
+                  "mt-2 bg-[#38BDF8] hover:bg-[#0ea5e9] text-[#0F172A] font-bold text-lg rounded-lg py-2 px-8 transition-all shadow-lg"
+                )}
+                size="lg"
+              >
+                {indice + 1 < total ? "Siguiente" : "Ver resultados"}
+              </Button>
             </div>
           )}
         </CardContent>
