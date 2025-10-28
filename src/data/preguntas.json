@@ -1,0 +1,74 @@
+[
+  {
+    "pregunta": "Al validar órdenes, si existe una orden pendiente, ¿cuál es el siguiente paso inmediato?",
+    "opciones": [
+      "Informa al cliente",
+      "Elegir proceso",
+      "Continuar según proceso",
+      "Revisa límite de endeudamiento"
+    ],
+    "respuesta_correcta": "Informa al cliente",
+    "categoria": "gráfico",
+    "razon": "Desde 'Valida Órdenes', si la decisión es 'SI' en '¿Existe orden pendiente?', la flecha lleva a 'Informa al cliente' y luego a 'Fin'."
+  },
+  {
+    "pregunta": "Tras 'Revisa 'Detalle de Evaluación'', ¿qué acción indica el flujograma?",
+    "opciones": [
+      "Informa según Mensaje Motor Evaluación",
+      "Ofrece Plan",
+      "Validar portabilidad",
+      "Selecciona Nueva Cuenta"
+    ],
+    "respuesta_correcta": "Informa según Mensaje Motor Evaluación",
+    "categoria": "gráfico",
+    "razon": "El nodo 'Revisa 'Detalle de Evaluación'' conecta directamente con 'Informa según Mensaje Motor Evaluación' antes de la decisión '¿Cliente aplica?'."
+  },
+  {
+    "pregunta": "Cuando el cliente aplica, ¿qué paso va justo antes de 'Ofrece Plan'?",
+    "opciones": [
+      "Revisa límite de endeudamiento",
+      "Selecciona Ciclo de Facturación",
+      "Revisa Resumen del Servicio",
+      "Ejecuta verificación de la Venta"
+    ],
+    "respuesta_correcta": "Revisa límite de endeudamiento",
+    "categoria": "gráfico",
+    "razon": "Después de que '¿Cliente aplica?' es 'SI' y de 'Selecciona tipo de adquisición y cargos asociados', el flujo muestra 'Revisa límite de endeudamiento' y luego 'Ofrece Plan'."
+  },
+  {
+    "pregunta": "Si el cliente no acepta las condiciones del plan, ¿qué se debe gestionar según el diagrama?",
+    "opciones": [
+      "Gestiona rebatimiento",
+      "Aplica rebatimiento",
+      "Informa al cliente",
+      "Ir a Facturación"
+    ],
+    "respuesta_correcta": "Gestiona rebatimiento",
+    "categoria": "gráfico",
+    "razon": "Desde la decisión '¿Cliente acepta condiciones?' con respuesta 'NO', el flujo conduce a 'Gestiona rebatimiento'."
+  },
+  {
+    "pregunta": "En la bifurcación 'Sin Equipo / Con Equipo', ¿qué acción corresponde a la ruta 'Con Equipo'?",
+    "opciones": [
+      "Selecciona marca y modelo",
+      "Ejecuta verificación de la Venta",
+      "Valida detalle de la Venta",
+      "Selecciona Dirección de Despacho"
+    ],
+    "respuesta_correcta": "Selecciona marca y modelo",
+    "categoria": "gráfico",
+    "razon": "El camino etiquetado 'Con Equipo' desemboca en el nodo 'Selecciona marca y modelo'; el de 'Sin Equipo' va a 'Ejecuta verificación de la Venta'."
+  },
+  {
+    "pregunta": "Después de 'Despedida y Encuesta', ¿qué paso se realiza antes del 'Fin'?",
+    "opciones": [
+      "Registra Venta en Drive",
+      "Realiza la Lectura de Contrato",
+      "Informa la Validación de Identidad",
+      "Revisa Resumen del Servicio"
+    ],
+    "respuesta_correcta": "Registra Venta en Drive",
+    "categoria": "gráfico",
+    "razon": "La secuencia final muestra 'Despedida y Encuesta' → 'Registra Venta en Drive' → 'Fin'."
+  }
+]
